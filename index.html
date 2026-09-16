@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <!-- Basic SEO -->
     <title>Alam Zaib — Founder & Full Stack Developer | Netvixa</title>
     <meta
@@ -60,22 +61,31 @@
       }
       html {
         scroll-behavior: smooth;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
       }
       body {
         background: var(--ink-black);
         color: var(--white);
         font-family: "Inter", sans-serif;
-        min-height: 100vh;
+        width: 100%;
+        height: 100%;
+        min-height: 100dvh;
         display: flex;
         justify-content: center;
+        align-items: flex-start;
+        overflow: hidden;
+        overscroll-behavior: none;
       }
 
       .page {
-        width: 100%;
-        max-width: 460px;
-        min-height: 100vh;
+        width: min(100%, 460px);
+        height: 100dvh;
+        min-height: 0;
         background: var(--ink-black);
         position: relative;
+        overflow: hidden;
       }
 
       /* ---------- HERO ---------- */
@@ -389,6 +399,104 @@
         outline-offset: 2px;
       }
 
+      /* ---------- RESPONSIVE: SAME VISUAL SCALE ON EVERY DEVICE ---------- */
+      /* The viewport meta tag keeps mobile browsers from using a 980px layout viewport.
+         These rules preserve the original proportions while adapting only available width. */
+      @media (max-width: 459px) {
+        .page {
+          width: 100%;
+        }
+
+        .hero {
+          height: 52dvh;
+          min-height: 300px;
+          max-height: 460px;
+        }
+
+        .hero-frame {
+          inset: 14px;
+        }
+
+        .links {
+          padding-left: 22px;
+          padding-right: 22px;
+        }
+      }
+
+      /* Short screens: reduce vertical spacing, not the typography/design. */
+      @media (max-height: 760px) and (min-width: 460px) {
+        .hero {
+          height: 44dvh;
+          min-height: 300px;
+        }
+        .divider-wrap {
+          padding-top: 14px;
+          padding-bottom: 2px;
+        }
+        .links {
+          padding-top: 8px;
+          gap: 7px;
+        }
+        .row {
+          padding-top: 11px;
+          padding-bottom: 11px;
+        }
+        footer {
+          padding-top: 14px;
+          padding-bottom: 18px;
+        }
+      }
+
+      /* Very short mobile displays: keep everything visible without browser scrolling. */
+      @media (max-width: 459px) and (max-height: 760px) {
+        .hero {
+          height: 42dvh;
+          min-height: 260px;
+        }
+        .eyebrow {
+          top: 24px;
+          font-size: 9.5px;
+        }
+        .name-block {
+          bottom: 18px;
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+        .name-block h1 {
+          font-size: 31px;
+        }
+        .name-block .title {
+          font-size: 12px;
+        }
+        .divider-wrap {
+          padding-top: 12px;
+          padding-bottom: 2px;
+        }
+        .links {
+          padding: 7px 18px 4px;
+          gap: 7px;
+        }
+        .row {
+          gap: 12px;
+          padding: 10px 13px;
+        }
+        .row .icon-wrap {
+          width: 36px;
+          height: 36px;
+          font-size: 15px;
+        }
+        .row .label {
+          font-size: 14px;
+        }
+        .row .caption {
+          font-size: 11px;
+        }
+        footer {
+          padding: 12px 14px 14px;
+          font-size: 10px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .hero img {
           animation: none;
@@ -401,12 +509,379 @@
           animation: none !important;
           opacity: 1 !important;
           transform: none !important;
+        }
+        .divider-line {
           width: 120px !important;
         }
       }
     </style>
-  </head>
-  <body>
+  
+    <!-- Responsive layout: same visual design, adapted to all viewport sizes -->
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        overscroll-behavior: none;
+      }
+
+      body {
+        min-height: 100dvh;
+        height: 100dvh;
+      }
+
+      .page {
+        width: min(100%, 460px);
+        height: 100dvh;
+        min-height: 0;
+        max-height: 100dvh;
+        overflow: hidden;
+      }
+
+      .hero {
+        height: clamp(175px, 32dvh, 360px);
+        min-height: 0;
+        max-height: none;
+        flex-shrink: 0;
+      }
+
+      .hero-frame {
+        inset: clamp(9px, 1.7dvh, 14px);
+      }
+
+      .hero-frame::before,
+      .hero-frame::after,
+      .corner-br,
+      .corner-bl {
+        width: clamp(17px, 2.5dvh, 22px);
+        height: clamp(17px, 2.5dvh, 22px);
+      }
+
+      .eyebrow {
+        top: clamp(17px, 2.6dvh, 28px);
+        font-size: clamp(8px, 1.35dvh, 10.5px);
+        letter-spacing: clamp(0.20em, 0.32em, 0.32em);
+        white-space: nowrap;
+      }
+
+      .name-block {
+        bottom: clamp(13px, 2.1dvh, 22px);
+        padding-inline: clamp(14px, 4vw, 24px);
+      }
+
+      .name-block h1 {
+        font-size: clamp(26px, 4.5dvh, 34px);
+      }
+
+      .name-block .title {
+        margin-top: clamp(3px, 0.6dvh, 6px);
+        font-size: clamp(10px, 1.7dvh, 13px);
+        white-space: nowrap;
+      }
+
+      .divider-wrap {
+        padding: clamp(9px, 1.8dvh, 22px) 0 clamp(3px, 0.7dvh, 6px);
+      }
+
+      .divider-line {
+        width: min(120px, 30vw);
+      }
+
+      .links {
+        padding: clamp(7px, 1.4dvh, 14px) clamp(10px, 4.8vw, 22px) clamp(5px, 1dvh, 10px);
+        gap: clamp(4px, 0.85dvh, 11px);
+      }
+
+      .row {
+        gap: clamp(9px, 1.8vw, 14px);
+        padding: clamp(8px, 1.45dvh, 15px) clamp(10px, 3.5vw, 16px);
+        border-radius: clamp(8px, 1.5vw, 10px);
+      }
+
+      .row .icon-wrap {
+        width: clamp(32px, 5.3dvh, 38px);
+        height: clamp(32px, 5.3dvh, 38px);
+        font-size: clamp(14px, 2.2dvh, 16px);
+      }
+
+      .row .label {
+        font-size: clamp(13px, 1.95dvh, 14.5px);
+      }
+
+      .row .caption {
+        font-size: clamp(10px, 1.55dvh, 11.5px);
+      }
+
+      .row .chev {
+        font-size: clamp(13px, 1.9dvh, 14px);
+      }
+
+      .badge {
+        font-size: clamp(8px, 1.2dvh, 9px);
+        padding: 2px 6px;
+        margin-left: clamp(5px, 1.2vw, 8px);
+      }
+
+      footer {
+        padding: clamp(8px, 2dvh, 20px) 12px clamp(9px, 2.5dvh, 30px);
+        font-size: clamp(9px, 1.35dvh, 11px);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 360px) {
+        .hero {
+          height: clamp(165px, 31dvh, 205px);
+        }
+
+        .links {
+          padding-inline: 9px;
+          gap: 4px;
+        }
+
+        .row {
+          gap: 8px;
+          padding-inline: 10px;
+        }
+
+        .row .icon-wrap {
+          width: 31px;
+          height: 31px;
+          font-size: 13px;
+        }
+
+        .name-block .title {
+          letter-spacing: 0;
+        }
+      }
+
+      @media (min-width: 461px) {
+        body {
+          align-items: center;
+        }
+      }
+
+      /* Extra-short screens: keep every item visible without page scrolling. */
+      @media (max-height: 600px) {
+        .hero {
+          height: 30dvh;
+        }
+
+        .divider-wrap {
+          padding-top: 7px;
+          padding-bottom: 2px;
+        }
+
+        .links {
+          padding-top: 5px;
+          padding-bottom: 3px;
+          gap: 3px;
+        }
+
+        .row {
+          padding-top: 6px;
+          padding-bottom: 6px;
+        }
+
+        .row .icon-wrap {
+          width: 29px;
+          height: 29px;
+        }
+
+        footer {
+          padding-top: 5px;
+          padding-bottom: 7px;
+        }
+      }
+
+      @media (max-height: 480px) {
+        .hero {
+          height: 28dvh;
+        }
+
+        .row {
+          padding-top: 4px;
+          padding-bottom: 4px;
+        }
+
+        .row .icon-wrap {
+          width: 27px;
+          height: 27px;
+        }
+      }
+    </style>
+
+  <style id="final-responsive-fix">
+/* Responsive fix — original visual design preserved, no page scrolling. */
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: var(--ink-black);
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page {
+  width: min(100vw, 460px);
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Keep the hero prominent and preserve the same image framing. */
+.hero {
+  width: 100%;
+  height: clamp(250px, 47dvh, 420px);
+  min-height: 0;
+  max-height: 420px;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.hero-frame {
+  inset: clamp(10px, 3vw, 14px);
+}
+
+.eyebrow {
+  top: clamp(18px, 3.5vw, 28px);
+  font-size: clamp(8.5px, 2.3vw, 10.5px);
+  white-space: nowrap;
+}
+
+.name-block {
+  bottom: clamp(14px, 3.5vw, 22px);
+  padding-inline: clamp(14px, 5vw, 24px);
+}
+
+.name-block h1 {
+  font-size: clamp(27px, 7.4vw, 34px);
+}
+
+.name-block .title {
+  margin-top: 5px;
+  font-size: clamp(10px, 2.8vw, 13px);
+  white-space: nowrap;
+}
+
+.divider-wrap {
+  flex: 0 0 auto;
+  padding: clamp(9px, 1.8dvh, 22px) 0 clamp(3px, .7dvh, 6px);
+}
+
+.divider-line {
+  width: min(120px, 30vw);
+}
+
+.links {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: clamp(6px, 1.2dvh, 14px) clamp(10px, 4.8vw, 22px) clamp(3px, .7dvh, 10px);
+  gap: clamp(4px, .9dvh, 11px);
+  overflow: hidden;
+}
+
+/* Rows stay visually like the original instead of becoming extremely tiny. */
+.row {
+  min-height: 0;
+  flex: 1 1 0;
+  gap: clamp(9px, 3vw, 14px);
+  padding: clamp(8px, 1.5dvh, 15px) clamp(10px, 3.5vw, 16px);
+}
+
+.row .icon-wrap {
+  width: clamp(31px, 5.3dvh, 38px);
+  height: clamp(31px, 5.3dvh, 38px);
+  font-size: clamp(13px, 2.2dvh, 16px);
+}
+
+.row .label {
+  font-size: clamp(12.5px, 2dvh, 14.5px);
+}
+
+.row .caption {
+  font-size: clamp(9.5px, 1.55dvh, 11.5px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row .chev {
+  font-size: clamp(12px, 1.9dvh, 14px);
+}
+
+.badge {
+  font-size: clamp(7.5px, 1.2dvh, 9px);
+  padding: 2px 6px;
+  margin-left: 5px;
+}
+
+footer {
+  flex: 0 0 auto;
+  padding: clamp(7px, 1.4dvh, 30px) 12px clamp(8px, 1.8dvh, 20px);
+  font-size: clamp(8px, 1.35dvh, 11px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Narrow phones */
+@media (max-width: 380px) {
+  .hero {
+    height: clamp(225px, 45dvh, 330px);
+  }
+  .links { padding-inline: 9px; gap: 4px; }
+  .row { gap: 8px; padding-inline: 10px; }
+  .row .icon-wrap { width: 30px; height: 30px; }
+}
+
+/* Landscape / short-height screens: compress spacing only as needed. */
+@media (max-height: 650px) {
+  .hero {
+    height: clamp(185px, 39dvh, 300px);
+  }
+  .divider-wrap { padding-top: 6px; padding-bottom: 2px; }
+  .links { padding-top: 4px; padding-bottom: 2px; gap: 3px; }
+  .row { padding-top: 6px; padding-bottom: 6px; }
+  .row .icon-wrap { width: 29px; height: 29px; }
+  footer { padding-top: 4px; padding-bottom: 6px; }
+}
+
+@media (max-height: 500px) {
+  .hero { height: 31dvh; }
+  .row { padding-top: 4px; padding-bottom: 4px; }
+  .row .icon-wrap { width: 27px; height: 27px; }
+  .row .label { font-size: 12px; }
+  .row .caption { font-size: 9px; }
+  footer { padding-top: 3px; padding-bottom: 4px; }
+}
+
+/* Very wide screens: keep the intentional centered 460px profile card. */
+@media (min-width: 461px) {
+  body { background: var(--ink-black); }
+}
+</style>
+</head>
+<body>
+
     <div class="page">
       <div class="hero">
         <img
@@ -541,3 +1016,4 @@
     </div>
   </body>
 </html>
+
